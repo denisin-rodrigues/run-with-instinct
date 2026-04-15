@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="200" height="100">
+  <!-- Background -->
+  <rect width="200" height="100" fill="none" />
+  
+  <!-- Deer Head Silhouette -->
+  <g transform="translate(50, 30)">
+    <!-- Left Antler -->
+    <path d="M 15 5 Q 10 -5 8 -15" stroke="#2d5541" stroke-width="2" fill="none" stroke-linecap="round" />
+    <path d="M 8 -15 L 3 -18" stroke="#2d5541" stroke-width="1.5" fill="none" stroke-linecap="round" />
+    <path d="M 8 -15 L 5 -22" stroke="#2d5541" stroke-width="1.5" fill="none" stroke-linecap="round" />
+    
+    <!-- Right Antler -->
+    <path d="M 25 5 Q 30 -5 32 -15" stroke="#2d5541" stroke-width="2" fill="none" stroke-linecap="round" />
+    <path d="M 32 -15 L 37 -18" stroke="#2d5541" stroke-width="1.5" fill="none" stroke-linecap="round" />
+    <path d="M 32 -15 L 35 -22" stroke="#2d5541" stroke-width="1.5" fill="none" stroke-linecap="round" />
+    
+    <!-- Head -->
+    <ellipse cx="20" cy="10" rx="8" ry="12" fill="#2d5541" />
+    
+    <!-- Snout -->
+    <ellipse cx="20" cy="20" rx="5" ry="4" fill="#2d5541" />
+    
+    <!-- Ears -->
+    <ellipse cx="14" cy="3" rx="2" ry="4" fill="#2d5541" />
+    <ellipse cx="26" cy="3" rx="2" ry="4" fill="#2d5541" />
+    
+    <!-- Eye accent line -->
+    <line x1="18" y1="8" x2="22" y2="8" stroke="#f5f3f0" stroke-width="1.5" stroke-linecap="round" />
+  </g>
+  
+  <!-- Brand Text -->
+  <text x="105" y="40" font-family="Playfair Display, Georgia, serif" font-size="14" font-weight="700" fill="#2d5541" letter-spacing="1">
+    RUN WITH
+  </text>
+  <text x="105" y="58" font-family="Playfair Display, Georgia, serif" font-size="14" font-weight="700" fill="#2d5541" letter-spacing="1">
+    INSTINCT
+  </text>
+  
+  <!-- Accent line -->
+  <line x1="105" y1="62" x2="175" y2="62" stroke="#c9915f" stroke-width="1" />
+</svg>

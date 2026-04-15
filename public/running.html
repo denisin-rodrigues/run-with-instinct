@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trail & Running Gear – Run With Instinct</title>
+  <meta name="description" content="Trail and endurance running collection for serious athletes and distance runners.">
+  
+  <!-- Tailwind CSS v3 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'forest-dark': '#1a3a2a',
+            'forest-primary': '#2d5541',
+            'moss-primary': '#5a7c5e',
+            'moss-light': '#9db89f',
+            'amber-warm': '#c9915f',
+            'bark-gray': '#6b5d52',
+            'clay-tan': '#8b7355',
+            'ivory-mist': '#f5f3f0',
+            'charcoal-dark': '#2b2520',
+            'charcoal-text': '#3d3530',
+            'fog-gray': '#c8c4c0',
+          },
+          fontFamily: {
+            'display': ['Playfair Display', 'Georgia', 'serif'],
+            'headline': ['Inter', 'system-ui', 'sans-serif'],
+            'body': ['Inter', 'system-ui', 'sans-serif'],
+            'label': ['IBM Plex Mono', 'monospace'],
+          },
+        },
+      },
+    }
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <style>
+    * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    html { scroll-behavior: smooth; }
+    body { background-color: #f5f3f0; color: #3d3530; }
+    .grain-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; opacity: 0.02; }
+    .navbar { position: fixed; top: 20px; left: 1/2; transform: translateX(-50%); z-index: 100; width: auto; max-width: calc(100% - 40px); }
+    .navbar-pill { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50px; padding: 12px 32px; display: flex; align-items: center; gap: 40px; transition: all 0.3s ease; }
+    .navbar-pill.dark { background: rgba(26, 58, 42, 0.3); border-color: rgba(255, 255, 255, 0.2); }
+    .logo { font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: inherit; text-decoration: none; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; color: inherit; transition: opacity 0.3s; }
+    .nav-links a:hover { opacity: 0.7; }
+    .nav-icons { display: flex; gap: 16px; align-items: center; }
+    .icon-button { background: none; border: none; cursor: pointer; font-size: 16px; opacity: 0.8; transition: opacity 0.3s; color: inherit; }
+    .icon-button:hover { opacity: 1; }
+    .cart-badge { position: absolute; top: -8px; right: -8px; background: #c9915f; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
+    .btn-pill { background: #2d5541; color: white; padding: 12px 28px; border-radius: 50px; border: none; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); text-decoration: none; display: inline-block; }
+    .btn-pill:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(45, 85, 65, 0.3); }
+    .premium-divider { width: 120px; height: 3px; background: linear-gradient(90deg, #2d5541 0%, #5a7c5e 50%, #2d5541 100%); margin: 0 auto 40px; }
+    .section-container { padding: 120px 40px; }
+    @media (max-width: 1024px) { .section-container { padding: 80px 32px; } }
+    @media (max-width: 640px) { .section-container { padding: 60px 20px; } }
+    .mobile-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a3a2a; z-index: 99; display: none; flex-direction: column; padding: 60px 20px; color: white; overflow-y: auto; }
+    .mobile-menu.active { display: flex; }
+    .mobile-menu-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+    .mobile-menu-links { list-style: none; margin-top: 40px; }
+    .mobile-menu-links li { margin: 20px 0; }
+    .mobile-menu-links a { color: white; text-decoration: none; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
+    .product-card { background: white; border-radius: 8px; overflow: hidden; transition: all 0.3s; }
+    .product-card:hover { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); }
+    .product-image { width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, #f5f3f0 0%, #e0dcd8 100%); display: flex; align-items: center; justify-content: center; font-size: 14px; color: #6b5d52; }
+    .product-info { padding: 20px; }
+    .product-name { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px; }
+    .product-price { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+    .product-quick-add { width: 100%; padding: 10px; background: #f5f3f0; border: none; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+    .product-quick-add:hover { background: #2d5541; color: white; }
+    .cart-drawer { position: fixed; right: -450px; top: 0; width: 450px; height: 100vh; background: white; z-index: 200; box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1); transition: right 0.4s ease; overflow-y: auto; display: flex; flex-direction: column; }
+    .cart-drawer.active { right: 0; }
+    @media (max-width: 640px) { .cart-drawer { width: 100%; right: -100%; } }
+    .cart-header { padding: 20px; border-bottom: 1px solid #e0dcd8; display: flex; justify-content: space-between; align-items: center; }
+    .cart-close { background: none; border: none; font-size: 20px; cursor: pointer; }
+    .cart-content { flex: 1; overflow-y: auto; padding: 20px; }
+    .cart-item { border-bottom: 1px solid #e0dcd8; padding: 15px 0; display: flex; gap: 15px; }
+    .cart-item-image { width: 80px; height: 80px; background: #f5f3f0; border-radius: 4px; }
+    .cart-item-details { flex: 1; }
+    .cart-item-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .quantity-control { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+    .qty-btn { width: 24px; height: 24px; border: 1px solid #e0dcd8; background: white; cursor: pointer; border-radius: 2px; }
+    .cart-footer { padding: 20px; border-top: 1px solid #e0dcd8; }
+    .cart-total { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 20px; font-size: 14px; }
+    .checkout-btn { width: 100%; padding: 14px; background: #2d5541; color: white; border: none; border-radius: 4px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; }
+    .empty-cart { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 300px; color: #6b5d52; text-align: center; }
+    .search-panel { position: fixed; top: 0; left: -100%; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 150; display: flex; align-items: flex-start; justify-content: center; padding-top: 100px; transition: left 0.3s ease; }
+    .search-panel.active { left: 0; }
+    .search-input { width: 100%; padding: 16px; font-size: 18px; border: none; border-bottom: 2px solid #2d5541; background: transparent; color: white; outline: none; }
+    .search-input::placeholder { color: rgba(255, 255, 255, 0.5); }
+    footer { background: #2b2520; color: #f5f3f0; }
+  </style>
+</head>
+<body>
+  <div class="grain-overlay"></div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileMenuClose">&times;</button>
+    <ul class="mobile-menu-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="running.html">Running</a></li>
+      <li><a href="men.html">Men</a></li>
+      <li><a href="women.html">Women</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="stories.html">Stories</a></li>
+    </ul>
+  </div>
+
+  <nav class="navbar" id="navbar">
+    <div class="navbar-pill dark" id="navbarPill">
+      <a href="index.html" class="logo">RUN WITH INSTINCT</a>
+      <ul class="nav-links hidden md:flex">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="running.html">Running</a></li>
+        <li><a href="men.html">Men</a></li>
+        <li><a href="women.html">Women</a></li>
+        <li><a href="collections.html">Collections</a></li>
+      </ul>
+      <div class="nav-icons">
+        <button class="icon-button hidden md:block" id="searchBtn" title="Search">🔍</button>
+        <button class="icon-button md:hidden" id="hamburger" title="Menu">☰</button>
+        <button class="icon-button relative" id="cartBtn" title="Cart">
+          <span>🛒</span>
+          <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
+        </button>
+      </div>
+      <a href="#products" class="btn-pill hidden md:inline-block">shop</a>
+    </div>
+  </nav>
+
+  <main style="position: relative; z-index: 2; margin-top: 60px;">
+    <section class="relative h-96 md:h-screen bg-cover bg-center" style="background: linear-gradient(135deg, rgba(26, 58, 42, 0.6) 0%, rgba(43, 37, 32, 0.6) 100%); background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22%3E%3Crect fill=%22%231a3a2a%22 width=%221200%22 height=%22600%22/%3E%3C/svg%3E');">
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-ivory-mist z-10">
+        <p class="font-label text-xs uppercase tracking-widest mb-4 opacity-80">TRAIL & ENDURANCE</p>
+        <h1 class="font-display text-5xl md:text-7xl font-bold uppercase mb-6">FOR SERIOUS DISTANCES</h1>
+        <p class="font-body text-lg md:text-xl max-w-2xl">Built for ultramarathons, mountain trails, and the long runs where finesse becomes survival.</p>
+      </div>
+    </section>
+
+    <section id="products" class="section-container bg-white">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-20">
+          <div class="premium-divider"></div>
+          <h2 class="font-display text-4xl font-bold text-charcoal-text uppercase mb-4">Running Essentials</h2>
+          <p class="font-body text-charcoal-text max-w-2xl mx-auto">Engineered for endurance, tested on legendary trails, built for your longest run.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8 mb-10">
+          <div class="product-card">
+            <div class="product-image">ULTRA TRAIL SHOE</div>
+            <div class="product-info">
+              <div class="product-name">Ultra Trail Pro</div>
+              <div class="product-price">$265</div>
+              <button class="product-quick-add add-to-cart" data-product="Ultra Trail Pro" data-price="265">Add to Cart</button>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-image">LIGHTWEIGHT RACE TOP</div>
+            <div class="product-info">
+              <div class="product-name">Race Light</div>
+              <div class="product-price">$95</div>
+              <button class="product-quick-add add-to-cart" data-product="Race Light" data-price="95">Add to Cart</button>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-image">ENDURANCE SHORTS</div>
+            <div class="product-info">
+              <div class="product-name">Distance Shorts</div>
+              <div class="product-price">$125</div>
+              <button class="product-quick-add add-to-cart" data-product="Distance Shorts" data-price="125">Add to Cart</button>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-image">HYDRATION PACK</div>
+            <div class="product-info">
+              <div class="product-name">Trail Hydro</div>
+              <div class="product-price">$175</div>
+              <button class="product-quick-add add-to-cart" data-product="Trail Hydro" data-price="175">Add to Cart</button>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-image">NAVIGATION POUCH</div>
+            <div class="product-info">
+              <div class="product-name">Nav Pouch</div>
+              <div class="product-price">$65</div>
+              <button class="product-quick-add add-to-cart" data-product="Nav Pouch" data-price="65">Add to Cart</button>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-image">GRIP RUNNING SOCKS</div>
+            <div class="product-info">
+              <div class="product-name">Ultra Socks (3)</div>
+              <div class="product-price">$55</div>
+              <button class="product-quick-add add-to-cart" data-product="Ultra Socks (3)" data-price="55">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-container bg-ivory-mist">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="font-display text-4xl font-bold text-charcoal-text uppercase mb-8 text-center">For The Long Run</h2>
+        <p class="font-body text-lg text-charcoal-text mb-6 leading-relaxed">A deer doesn't rush the mile—it paces. It reads the terrain, it adapts, it keeps moving. Our running collection is built for runners who understand that endurance isn't speed, it's rhythm.</p>
+        <p class="font-body text-lg text-charcoal-text leading-relaxed">Every product tested on trails that matter: the PCT, the Alps, the highest peaks. We build for 50K, 100K, and the moments when distance becomes meditation.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="section-container">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16 pb-16 border-b border-fog-gray border-opacity-20">
+        <h2 class="font-display text-3xl font-bold uppercase mb-4">RUN WITH INSTINCT</h2>
+        <p class="font-body max-w-2xl">A wildlife editorial brand celebrating the grace, power, and instinct of natural movement.</p>
+      </div>
+      <div class="grid md:grid-cols-4 gap-12 mb-16">
+        <div>
+          <h4 class="font-label text-sm font-bold uppercase mb-6 tracking-wider">Shop</h4>
+          <ul class="space-y-3 font-body text-sm">
+            <li><a href="running.html" class="opacity-70 hover:opacity-100">Running</a></li>
+            <li><a href="men.html" class="opacity-70 hover:opacity-100">Men's</a></li>
+            <li><a href="women.html" class="opacity-70 hover:opacity-100">Women's</a></li>
+            <li><a href="collections.html" class="opacity-70 hover:opacity-100">Collections</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-label text-sm font-bold uppercase mb-6 tracking-wider">Explore</h4>
+          <ul class="space-y-3 font-body text-sm">
+            <li><a href="stories.html" class="opacity-70 hover:opacity-100">Stories</a></li>
+            <li><a href="index.html" class="opacity-70 hover:opacity-100">Home</a></li>
+            <li><a href="#" class="opacity-70 hover:opacity-100">Conservation</a></li>
+            <li><a href="#" class="opacity-70 hover:opacity-100">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-label text-sm font-bold uppercase mb-6 tracking-wider">Support</h4>
+          <ul class="space-y-3 font-body text-sm">
+            <li><a href="#" class="opacity-70 hover:opacity-100">Contact</a></li>
+            <li><a href="#" class="opacity-70 hover:opacity-100">Returns</a></li>
+            <li><a href="#" class="opacity-70 hover:opacity-100">Shipping</a></li>
+            <li><a href="#" class="opacity-70 hover:opacity-100">Size Guide</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-label text-sm font-bold uppercase mb-6 tracking-wider">Connect</h4>
+          <ul class="space-y-3 font-body text-sm">
+            <li><a href="#" class="opacity-70 hover:opacity-100">Instagram</a></li>
+            <li><a href="#" class="opacity-70 hover:opacity-100">Twitter</a></li>
+            <li><a href="#" class="opacity-70 hover:opacity-100">YouTube</a></li>
+            <li><a href="#" class="opacity-70 hover:opacity-100">Newsletter</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-fog-gray border-opacity-20 flex flex-col md:flex-row justify-between items-center gap-6 font-label text-xs text-fog-gray">
+        <div>&copy; 2025 Run With Instinct. All rights reserved.</div>
+        <div class="flex gap-8"><a href="#" class="hover:opacity-100 opacity-70">Privacy</a><a href="#" class="hover:opacity-100 opacity-70">Terms</a><a href="#" class="hover:opacity-100 opacity-70">Cookies</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h2 class="font-headline font-bold text-lg">Your Herd</h2>
+      <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="cart-content" id="cartContent">
+      <div class="empty-cart"><p class="font-body mb-2">Your cart is empty.</p><p class="font-label text-xs text-bark-gray">Begin your journey.</p></div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>TOTAL</span><span id="cartTotal">$0.00</span></div>
+      <button class="checkout-btn" id="checkoutBtn">PROCEED TO CHECKOUT</button>
+      <p class="font-label text-micro text-center text-bark-gray mt-4">30-day returns • Free shipping</p>
+    </div>
+  </div>
+
+  <div class="search-panel" id="searchPanel">
+    <div style="width: 90%; max-width: 600px;">
+      <input type="text" class="search-input" placeholder="Search the field" id="searchInput" />
+    </div>
+  </div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+    hamburger.addEventListener('click', () => { mobileMenu.classList.add('active'); });
+    mobileMenuClose.addEventListener('click', () => { mobileMenu.classList.remove('active'); });
+
+    let cart = [];
+    const cartBtn = document.getElementById('cartBtn');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartClose = document.getElementById('cartClose');
+    const cartBadge = document.getElementById('cartBadge');
+    const cartContent = document.getElementById('cartContent');
+    const cartTotal = document.getElementById('cartTotal');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    function updateCartUI() {
+      if (cart.length === 0) {
+        cartContent.innerHTML = `<div class="empty-cart"><p class="font-body mb-2">Your cart is empty.</p><p class="font-label text-xs text-bark-gray">Begin your journey.</p></div>`;
+        cartBadge.style.display = 'none';
+      } else {
+        let html = '', total = 0;
+        cart.forEach((item, idx) => {
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+          html += `<div class="cart-item"><div class="cart-item-image"></div><div class="cart-item-details"><div class="cart-item-title">${item.name}</div><div class="quantity-control"><button class="qty-btn" onclick="decreaseQty(${idx})">−</button><span>${item.quantity}</span><button class="qty-btn" onclick="increaseQty(${idx})">+</button></div><div class="font-headline text-sm font-bold mt-2">$${itemTotal.toFixed(2)}</div></div></div>`;
+        });
+        cartContent.innerHTML = html;
+        cartTotal.textContent = `$${total.toFixed(2)}`;
+        cartBadge.textContent = cart.length;
+        cartBadge.style.display = 'flex';
+      }
+    }
+
+    function addToCart(product, price) {
+      const existing = cart.find(item => item.name === product);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ name: product, price: parseFloat(price), quantity: 1 });
+      }
+      updateCartUI();
+    }
+
+    function increaseQty(idx) { cart[idx].quantity += 1; updateCartUI(); }
+    function decreaseQty(idx) { if (cart[idx].quantity > 1) { cart[idx].quantity -= 1; } else { cart.splice(idx, 1); } updateCartUI(); }
+
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        addToCart(e.target.dataset.product, e.target.dataset.price);
+        cartDrawer.classList.add('active');
+      });
+    });
+
+    cartBtn.addEventListener('click', () => { cartDrawer.classList.add('active'); });
+    cartClose.addEventListener('click', () => { cartDrawer.classList.remove('active'); });
+    checkoutBtn.addEventListener('click', () => { alert('Thanks for shopping with Run With Instinct!'); });
+
+    const searchBtn = document.getElementById('searchBtn');
+    const searchPanel = document.getElementById('searchPanel');
+    searchBtn.addEventListener('click', () => {
+      searchPanel.classList.add('active');
+      document.getElementById('searchInput').focus();
+    });
+    searchPanel.addEventListener('click', (e) => {
+      if (e.target === searchPanel) searchPanel.classList.remove('active');
+    });
+  </script>
+</body>
+</html>

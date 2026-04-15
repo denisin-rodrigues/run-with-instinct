@@ -1,0 +1,35 @@
+# Node modules
+node_modules/
+package-lock.json
+yarn.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build artifacts
+dist/
+build/
+.cache/
+
+# Dependencies
+npm-debug.log
+yarn-error.log
+
+# Optional asset directories (for local development)
+# Uncomment if using local dev:
+# assets/frames/
+# assets/images/
+
+# Temporary files
+*.tmp
+*.bak
