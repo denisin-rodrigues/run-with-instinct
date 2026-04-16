@@ -50,11 +50,24 @@
   }
 
   function resizeCanvas() {
-    if (!heroCanvas) return;
-    // For background style, we want to cover the viewport or container
+    if (!heroCanvas || !heroCtx) return;
+    
+    const dpr = window.devicePixelRatio || 1;
     const container = heroCanvas.parentElement;
-    heroCanvas.width = container.clientWidth;
-    heroCanvas.height = container.clientHeight;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    
+    // Set actual pixel size
+    heroCanvas.width = width * dpr;
+    heroCanvas.height = height * dpr;
+    
+    // Scale drawings
+    heroCtx.scale(dpr, dpr);
+    
+    // Enable high quality smoothing
+    heroCtx.imageSmoothingEnabled = true;
+    heroCtx.imageSmoothingQuality = 'high';
+    
     drawFrame(currentFrame);
   }
 
@@ -87,26 +100,29 @@
     if (!heroCtx || !frameImages[index]) return;
     const img = frameImages[index];
     const canvas = heroCanvas;
+    
+    const canvasWidth = canvas.width / (window.devicePixelRatio || 1);
+    const canvasHeight = canvas.height / (window.devicePixelRatio || 1);
 
     // Cover-fit logic
     const imgRatio = img.naturalWidth / img.naturalHeight;
-    const canvasRatio = canvas.width / canvas.height;
+    const canvasRatio = canvasWidth / canvasHeight;
 
     let drawWidth, drawHeight, offsetX, offsetY;
 
     if (canvasRatio > imgRatio) {
-      drawWidth = canvas.width;
-      drawHeight = canvas.width / imgRatio;
+      drawWidth = canvasWidth;
+      drawHeight = canvasWidth / imgRatio;
       offsetX = 0;
-      offsetY = (canvas.height - drawHeight) / 2;
+      offsetY = (canvasHeight - drawHeight) / 2;
     } else {
-      drawHeight = canvas.height;
-      drawWidth = canvas.height * imgRatio;
-      offsetX = (canvas.width - drawWidth) / 2;
+      drawHeight = canvasHeight;
+      drawWidth = canvasHeight * imgRatio;
+      offsetX = (canvasWidth - drawWidth) / 2;
       offsetY = 0;
     }
 
-    heroCtx.clearRect(0, 0, canvas.width, canvas.height);
+    heroCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     heroCtx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
   }
 
@@ -237,8 +253,21 @@
 
   // Initialization
   function init() {
-    initHeroCanvas();
-    preloadFrames();
+    if (heroCanvas) {
+      initHeroCanvas();
+      preloadFrames();
+    } else {
+      // For pages without canvas hero, just dismiss preloader immediately
+      if (preloader) {
+        setTimeout(() => {
+          preloader.classList.add('hidden');
+        }, 800);
+      }
+      initRevealAnimations();
+      initParallax();
+      animateCounters();
+      initMarquee();
+    }
     initCursor();
     initMobileNav();
   }
