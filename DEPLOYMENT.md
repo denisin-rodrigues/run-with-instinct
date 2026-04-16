@@ -1,4 +1,5 @@
-# Deployment Guide – Run With Instinct
+# Guia de Deploy – Run With Instinct
+**Link ao Vivo:** [https://run-with-instinct.netlify.app](https://run-with-instinct.netlify.app)
 
 ## Quick Deployment Checklist
 

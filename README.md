@@ -1,18 +1,13 @@
-# Run With Instinct – Wildlife Editorial Marketing Website
+# Run With Instinct — Midnight Editorial Case
+A premium, scrollytelling marketing experience for John Deere, blending brutalist typography with high-end digital luxury.
 
-A premium, fully-static scrollytelling marketing website for a fictional wildlife editorial brand centered on an adult male deer campaign.
-
-## 🌲 Project Overview
-
-**Run With Instinct** is a production-quality, deploy-ready website featuring:
-
-- **6 Static HTML Pages** – Zero backend, zero build tooling
-- **Premium Scrollytelling** – GSAP 3.12.5 animations with ScrollTrigger
-- **Fully Functional Client-Side Cart** – Add to cart, quantity controls, checkout demo
-- **Responsive Design** – Mobile-first with Tailwind CSS v3
-- **Luxury Editorial Aesthetic** – Cinematic nature documentary mood
-- **Prefers-Reduced-Motion Support** – Accessible motion preferences
-- **Deploy-Ready** – Single-directory deployment
+## 🌲 Visão Geral do Projeto
+**Run With Instinct** é um site de "digital luxury" que utiliza:
+- **Hero Frame-Sequence** – Sequência de 237 frames de animação controlados pelo scroll.
+- **Midnight Editorial Style** – Estética de alto contraste (Preto #050505 e Branco Purista).
+- **Tipografia Premium** – Uso de 'Clash Display' para títulos e 'Inter' para corpo.
+- **Atmosfera Dinâmica** – Efeitos de 'light leaks' e blend modes adaptativos.
+- **Deploy Oficial** – [https://run-with-instinct.netlify.app](https://run-with-instinct.netlify.app)
 
 ---
 

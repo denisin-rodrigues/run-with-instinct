@@ -1,8 +1,8 @@
 # Run With Instinct – Complete Project Summary
 
-## 🎉 Project Status: COMPLETE & DEPLOY-READY
-
-A premium, fully-static wildlife editorial marketing website celebrating an adult male deer campaign.
+## 🎉 Project Status: LIVE & REDESIGNED (Midnight Edition)
+O projeto foi totalmente reformulado para a estética "Midnight Editorial".
+**URL de Produção:** [https://run-with-instinct.netlify.app](https://run-with-instinct.netlify.app)
 
 ---
 

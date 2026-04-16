@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Run With Instinct — John Deere. Born from nature's force, built for the relentless. Where raw power meets purposeful design.">
-  <meta name="theme-color" content="#050505">
-  <title>Run With Instinct — John Deere</title>
+  <meta name="description" content="Nada Corre Como um Deere. John Deere Brasil — Onde força bruta encontra inovação e propósito.">
+  <meta name="theme-color" content="#367C2B">
+  <title>John Deere | Nada Corre Como um Deere</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,13 +17,13 @@
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+  <link rel="icon" type="image/svg+xml" href="assets/images/john_deere_logo.svg">
 </head>
 <body>
 
   <!-- ===================== PRELOADER ===================== -->
   <div class="preloader" id="preloader">
-    <div class="preloader__brand">Run With Instinct</div>
+    <div class="preloader__brand">John Deere</div>
     <div class="preloader__bar-container">
       <div class="preloader__bar" id="preloaderBar"></div>
     </div>
@@ -36,32 +36,19 @@
   <nav class="nav" id="mainNav">
     <div class="nav__inner">
       <a href="#" class="nav__brand" id="navBrand">
-        <svg class="nav__brand-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="36" height="18">
-          <g transform="translate(50, 30)">
-            <path d="M 15 5 Q 10 -5 8 -15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <path d="M 8 -15 L 3 -18" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M 8 -15 L 5 -22" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M 25 5 Q 30 -5 32 -15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <path d="M 32 -15 L 37 -18" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M 32 -15 L 35 -22" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <ellipse cx="20" cy="10" rx="8" ry="12" fill="currentColor"/>
-            <ellipse cx="20" cy="20" rx="5" ry="4" fill="currentColor"/>
-            <ellipse cx="14" cy="3" rx="2" ry="4" fill="currentColor"/>
-            <ellipse cx="26" cy="3" rx="2" ry="4" fill="currentColor"/>
-          </g>
-        </svg>
-        RWI
+        <img src="assets/images/john_deere_logo.svg" alt="John Deere Logo" class="nav__brand-img">
+        <span>John Deere</span>
       </a>
 
       <div class="nav__links" id="navLinks">
-        <a href="#heritage" class="nav__link" id="navHeritage">Heritage</a>
-        <a href="#instinct" class="nav__link" id="navInstinct">Instinct</a>
-        <a href="#gallery" class="nav__link" id="navGallery">Gallery</a>
-        <a href="#vision" class="nav__link" id="navVision">Vision</a>
-        <a href="#contact" class="nav__cta" id="navContact">Contact</a>
+        <a href="#herança" class="nav__link">Herança</a>
+        <a href="#tecnologia" class="nav__link">Tecnologia</a>
+        <a href="#galeria" class="nav__link">Galeria</a>
+        <a href="#visao" class="nav__link">Visão</a>
+        <a href="#contato" class="nav__cta">Contato</a>
       </div>
 
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation">
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir navegação">
         <span></span>
         <span></span>
         <span></span>
@@ -69,30 +56,32 @@
     </div>
   </nav>
 
-  <!-- ===================== HERO SECTION ===================== -->
-  <section class="hero" id="hero">
-    <!-- Atmospheric Light Leaks -->
-    <div class="light-leak light-leak--orange hero__light-leak-1"></div>
-    <div class="light-leak light-leak--blue hero__light-leak-2"></div>
+  <!-- ===================== HERO SECTION (BACKGROUND STYLE) ===================== -->
+  <section class="hero hero--background" id="hero">
+    <div class="hero__bg-container">
+      <canvas id="heroCanvas" class="hero__canvas-bg"></canvas>
+      <div class="hero__overlay"></div>
+    </div>
 
     <div class="hero__content">
-      <div class="hero__image-container reveal-up">
-        <canvas id="heroCanvas" class="hero__frame-canvas"></canvas>
+      <div class="hero__title reveal-up">
+        <span>Nada</span>
+        <span>Corre</span>
+        <span>Como um Deere</span>
       </div>
 
-      <div class="hero__title reveal-up delay-2">
-        <span>Run</span>
-        <span>With</span>
-        <span>Instinct</span>
+      <div class="hero__subtitle reveal-up delay-2">
+        A força da natureza encontra a precisão da tecnologia. Inovação que move gerações e transforma o campo de ponta a ponta.
       </div>
 
-      <div class="hero__subtitle reveal-up delay-4">
-        Born from nature's unyielding force. Built for those who never stop moving. Where raw power meets purposeful design.
+      <div class="hero__actions reveal-up delay-4">
+        <a href="#herança" class="btn-primary">Conheça o Legado</a>
+        <a href="#tecnologia" class="btn-secondary">Inovação</a>
       </div>
     </div>
 
     <div class="hero__scroll-indicator">
-      <span class="label">Scroll</span>
+      <span class="label">Role</span>
       <div class="hero__scroll-line"></div>
     </div>
   </section>
@@ -102,41 +91,41 @@
     <div class="container">
       <div class="stats__grid">
         <div class="stats__cell reveal-up delay-1">
-          <span class="stats__label">Founded</span>
+          <span class="stats__label">Fundada em</span>
           <span class="stats__value" data-count="1837" data-prefix="">0</span>
         </div>
         <div class="stats__cell reveal-up delay-2">
-          <span class="stats__label">Countries</span>
+          <span class="stats__label">Países Atendidos</span>
           <span class="stats__value" data-count="30" data-suffix="+">0</span>
         </div>
         <div class="stats__cell reveal-up delay-3">
-          <span class="stats__label">Hectares Served</span>
+          <span class="stats__label">Hectares Cultivados</span>
           <span class="stats__value" data-count="160" data-suffix="M+">0</span>
         </div>
         <div class="stats__cell reveal-up delay-4">
-          <span class="stats__label">Legacy of Power</span>
-          <span class="stats__value" data-count="187" data-suffix=" yrs">0</span>
+          <span class="stats__label">Legado de Força</span>
+          <span class="stats__value" data-count="187" data-suffix=" anos">0</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===================== EDITORIAL BLOCK 01 — HERITAGE ===================== -->
-  <section class="editorial section-border" id="heritage">
+  <section class="editorial section-border" id="herança">
     <div class="container">
       <div class="editorial__grid">
         <div class="editorial__number reveal-up">01</div>
         <div class="editorial__spacer"></div>
         <div class="editorial__content">
-          <h2 class="editorial__heading reveal-up delay-1">The Heritage<br>of Instinct</h2>
+          <h2 class="editorial__heading reveal-up delay-1">O Legado<br>da Resiliência</h2>
           <p class="editorial__text reveal-up delay-2">
-            Since 1837, John Deere has embodied the spirit of the deer — tireless, powerful, and driven by pure instinct. Every machine we craft carries the DNA of nature's most relentless runner. From the first steel plow that broke the American prairie to the autonomous tractors navigating today's fields with satellite precision, our legacy is built on one principle: Never Stand Still.
+            Desde 1837, John Deere personifica a força indomável do campo. Cada máquina que construímos carrega o DNA da excelência e da durabilidade. Do primeiro arado de aço que revolucionou a agricultura às tecnologias autônomas de hoje, nossa missão é clara: facilitar o trabalho de quem alimenta o mundo.
           </p>
           <p class="editorial__text reveal-up delay-3">
-            The deer doesn't pause to calculate risk. It moves. It adapts. It survives. This is the instinct we engineer into every piece of equipment — an intuitive understanding of the land, the crop, the moment. When you run a Deere, you don't just work the earth. You run with it.
+            O campo não espera. Ele exige agilidade, força e precisão. Por isso, nossas máquinas são projetadas para antecipar desafios e superar limites. Quando você opera um John Deere, você não está apenas trabalhando a terra; você está construindo o futuro.
           </p>
-          <a href="#" class="editorial__link reveal-up delay-4" id="exploreHeritage">
-            Explore Our Heritage <span class="editorial__link-arrow">→</span>
+          <a href="#" class="editorial__link reveal-up delay-4">
+            Explore Nossa História <span class="editorial__link-arrow">→</span>
           </a>
         </div>
       </div>
@@ -147,29 +136,29 @@
   <div class="parallax-image reveal-up">
     <img
       src="assets/images/deer_field_landscape.jpg"
-      alt="A majestic deer stands in a golden field alongside a John Deere tractor at sunset"
+      alt="Maquinário John Deere em harmonia com a natureza"
       class="parallax-image__img"
       loading="lazy"
     >
     <div class="parallax-image__overlay"></div>
   </div>
 
-  <!-- ===================== EDITORIAL BLOCK 02 — INSTINCT ===================== -->
-  <section class="editorial section-border" id="instinct">
+  <!-- ===================== EDITORIAL BLOCK 02 — TECHNOLOGY ===================== -->
+  <section class="editorial section-border" id="tecnologia">
     <div class="container">
       <div class="editorial__grid">
         <div class="editorial__number reveal-up">02</div>
         <div class="editorial__spacer"></div>
         <div class="editorial__content">
-          <h2 class="editorial__heading reveal-up delay-1">Engineered<br>by Nature</h2>
+          <h2 class="editorial__heading reveal-up delay-1">Inovação em<br>Cada Detalhe</h2>
           <p class="editorial__text reveal-up delay-2">
-            Nature doesn't design with compromise. Neither do we. Every curve of our machines echoes the aerodynamic grace of the running deer. Every engine pulse matches the heartbeat of untamed wilderness. Our engineers don't just build tractors, harvesters, and loaders — they translate millions of years of evolutionary perfection into steel and silicon.
+            A natureza é mestre em eficiência, e nós somos seus aprendizes mais dedicados. Nossos engenheiros traduzem milhões de anos de perfeição evolutiva em hardware e software de ponta. Tecnologia que conecta o campo à nuvem, garantindo produtividade máxima com o mínimo de desperdício.
           </p>
           <p class="editorial__text reveal-up delay-3">
-            From the precision of GPS-guided autonomous systems to the raw torque of engines that can reshape landscapes, John Deere technology is biomimicry at its most powerful. The result? Machines that don't just perform — they anticipate. They sense the terrain, adapt to conditions, and deliver with an efficiency that only nature itself could inspire.
+            Através de sistemas guiados por satélite, análises de dados em tempo real e inteligência artificial, levamos o instinto da precisão para o dia a dia do produtor. No Brasil e no mundo, a marca John Deere é sinônimo de uma evolução que nunca para.
           </p>
-          <a href="#" class="editorial__link reveal-up delay-4" id="exploreInstinct">
-            Discover the Technology <span class="editorial__link-arrow">→</span>
+          <a href="#" class="editorial__link reveal-up delay-4">
+            Descubra Nossa Tecnologia <span class="editorial__link-arrow">→</span>
           </a>
         </div>
       </div>
@@ -179,182 +168,144 @@
   <!-- ===================== MARQUEE ===================== -->
   <div class="marquee-section">
     <div class="marquee__track">
-      <span class="marquee__item">Run With Instinct</span>
+      <span class="marquee__item">Nada Corre Como um Deere</span>
       <span class="marquee__separator">●</span>
-      <span class="marquee__item">John Deere</span>
+      <span class="marquee__item">Inovação para o Campo</span>
       <span class="marquee__separator">●</span>
-      <span class="marquee__item">Born to Run</span>
+      <span class="marquee__item">John Deere Brasil</span>
       <span class="marquee__separator">●</span>
-      <span class="marquee__item">Nothing Runs Like a Deere</span>
+      <span class="marquee__item">Poder e Precisão</span>
       <span class="marquee__separator">●</span>
     </div>
   </div>
 
   <!-- ===================== GALLERY ===================== -->
-  <section class="gallery section-border" id="gallery">
+  <section class="gallery section-border" id="galeria">
     <div class="container">
       <div class="gallery__header">
-        <h2 class="gallery__title reveal-up">The Wild<br>Collection</h2>
-        <span class="label reveal-up delay-2">Gallery — 2026</span>
+        <h2 class="gallery__title reveal-up">Galeria de<br>Legado</h2>
+        <span class="label reveal-up delay-2">Snapshot — 2026</span>
       </div>
 
       <div class="gallery__grid">
         <div class="gallery__item reveal-up delay-1">
           <img
             src="assets/images/deer_autumn_portrait.jpg"
-            alt="Majestic deer portrait in autumn forest light"
+            alt="Presença majestosa no campo"
             class="gallery__item-img"
             loading="lazy"
           >
           <div class="gallery__item-overlay"></div>
-          <span class="gallery__item-caption">Autumn Majesty</span>
+          <span class="gallery__item-caption">Majestade no Solo</span>
         </div>
 
         <div class="gallery__item reveal-up delay-2">
           <img
             src="assets/images/um_cervo_macho_202604151955.png"
-            alt="Adult male deer standing proudly with a John Deere tractor in a green field"
+            alt="O guardião do campo"
             class="gallery__item-img"
             loading="lazy"
           >
           <div class="gallery__item-overlay"></div>
-          <span class="gallery__item-caption">The Guardian</span>
+          <span class="gallery__item-caption">O Guardião</span>
         </div>
 
         <div class="gallery__item gallery__item--wide reveal-up delay-3">
           <img
             src="assets/images/deer_forest_motion.jpg"
-            alt="Running deer in forest motion — the spirit of Run With Instinct"
+            alt="Velocidade e força Deere"
             class="gallery__item-img"
             loading="lazy"
           >
           <div class="gallery__item-overlay"></div>
-          <span class="gallery__item-caption">Forest Velocity</span>
+          <span class="gallery__item-caption">Velocidade e Força</span>
         </div>
 
         <div class="gallery__item reveal-up delay-1">
           <img
             src="assets/images/adult_male_deer_202604151941.png"
-            alt="Adult male deer alongside John Deere machinery in pastoral landscape"
+            alt="Potência em ação"
             class="gallery__item-img"
             loading="lazy"
           >
           <div class="gallery__item-overlay"></div>
-          <span class="gallery__item-caption">Field & Force</span>
+          <span class="gallery__item-caption">Produção & Potência</span>
         </div>
 
         <div class="gallery__item reveal-up delay-2">
           <img
             src="assets/images/um_cervo_macho_202604152001.png"
-            alt="Deer with John Deere tractor in scenic countryside at sunset"
+            alt="Horizonte de possibilidades"
             class="gallery__item-img"
             loading="lazy"
           >
           <div class="gallery__item-overlay"></div>
-          <span class="gallery__item-caption">Golden Hour</span>
+          <span class="gallery__item-caption">Horizonte Verde</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===================== VISION SECTION ===================== -->
-  <section class="vision section-border" id="vision">
+  <section class="vision section-border" id="visao">
     <div class="container">
       <div class="vision__grid">
         <div class="vision__image reveal-up">
           <img
             src="assets/images/deer_autumn_portrait.jpg"
-            alt="Close-up portrait of a deer in autumn — symbol of precision and awareness"
+            alt="O futuro da agricultura"
             loading="lazy"
           >
         </div>
 
         <div class="vision__text">
-          <span class="vision__eyebrow reveal-up">Vision — 2026</span>
-          <h2 class="vision__heading reveal-up delay-1">The Future<br>Runs Wild</h2>
+          <span class="vision__eyebrow reveal-up">Visão — 2026</span>
+          <h2 class="vision__heading reveal-up delay-1">O Futuro Corre<br>no Campo</h2>
           <p class="vision__description reveal-up delay-2">
-            As the world accelerates toward autonomous agriculture and precision farming, John Deere leads the charge with the same instinct that has guided us for nearly two centuries. Our vision is clear: a world where every acre is cultivated with the intelligence of nature and the precision of technology.
+            Enquanto o mundo acelera em direção à agricultura autônoma e de precisão, a John Deere lidera o caminho com o mesmo instinto que nos guiou por quase dois séculos. Nossa visão é clara: um mundo onde cada hectare é cultivado com a inteligência da natureza e a precisão absoluta da tecnologia.
           </p>
           <p class="vision__description reveal-up delay-3">
-            From AI-powered crop analysis to fully autonomous harvesting systems, we are building the future of farming — one that respects the rhythms of the earth while maximizing its potential. The deer runs forward. So do we.
+            Seja através de IA para análise de solo ou sistemas avançados de plantio e colheita, estamos construindo um agronegócio mais eficiente, sustentável e produtivo.
           </p>
 
           <div class="vision__stats reveal-up delay-4">
             <div>
               <div class="vision__stat-value" data-count="95" data-suffix="%">0</div>
-              <div class="vision__stat-label">Precision Accuracy</div>
+              <div class="vision__stat-label">Precisão Agrícola</div>
             </div>
             <div>
               <div class="vision__stat-value" data-count="40" data-suffix="%">0</div>
-              <div class="vision__stat-label">Efficiency Gains</div>
+              <div class="vision__stat-label">Eficiência Produtiva</div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Atmospheric glow -->
-    <div class="light-leak light-leak--green" style="width: 400px; height: 400px; top: 50%; right: -200px; transform: translateY(-50%);"></div>
-  </section>
-
-  <!-- ===================== FULL-WIDTH PARALLAX IMAGE 2 ===================== -->
-  <div class="parallax-image reveal-up">
-    <img
-      src="assets/images/um_cervo_macho_202604152001.png"
-      alt="Deer and tractor in golden field panorama"
-      class="parallax-image__img"
-      loading="lazy"
-    >
-    <div class="parallax-image__overlay"></div>
-  </div>
-
-  <!-- ===================== EDITORIAL BLOCK 03 ===================== -->
-  <section class="editorial section-border" id="legacy">
-    <div class="container">
-      <div class="editorial__grid">
-        <div class="editorial__number reveal-up">03</div>
-        <div class="editorial__spacer"></div>
-        <div class="editorial__content">
-          <h2 class="editorial__heading reveal-up delay-1">Nothing Runs<br>Like a Deere</h2>
-          <p class="editorial__text reveal-up delay-2">
-            This isn't just a tagline. It's a covenant with the land and the people who tend it. When you watch a deer sprint through open country — fluid, unstoppable, instinctive — you see the same qualities that define every John Deere machine ever built. Pure performance born from purpose.
-          </p>
-          <p class="editorial__text reveal-up delay-3">
-            From the rice paddies of Brazil to the wheat fields of North America, from the vineyards of Bordeaux to the sugarcane expanses of Southeast Asia — wherever the earth demands its best, a Deere answers. This is what it means to run with instinct. This is what it means to be relentless.
-          </p>
-          <a href="https://www.deere.com.br/pt/index.html" class="editorial__link reveal-up delay-4" id="exploreDeere" target="_blank" rel="noopener">
-            Visit John Deere Brasil <span class="editorial__link-arrow">→</span>
-          </a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===================== FOOTER ===================== -->
-  <footer class="footer section-border" id="contact">
-    <!-- Atmospheric Light Leak -->
+  <footer class="footer section-border" id="contato">
     <div class="light-leak light-leak--orange footer__light-leak"></div>
 
     <div class="container">
       <div class="footer__content">
-        <a href="mailto:instinct@deere.com" class="footer__cta reveal-up" id="footerCta">instinct@deere.com</a>
+        <a href="mailto:contato@deere.com.br" class="footer__cta reveal-up">contato@deere.com.br</a>
 
         <div class="footer__social reveal-up delay-2">
-          <a href="#" class="footer__social-link" id="socialInstagram">Instagram</a>
-          <a href="#" class="footer__social-link" id="socialLinkedIn">LinkedIn</a>
-          <a href="#" class="footer__social-link" id="socialYouTube">YouTube</a>
-          <a href="#" class="footer__social-link" id="socialTwitter">X / Twitter</a>
+          <a href="#" class="footer__social-link">Instagram</a>
+          <a href="#" class="footer__social-link">LinkedIn</a>
+          <a href="#" class="footer__social-link">YouTube</a>
+          <a href="#" class="footer__social-link">X / Twitter</a>
         </div>
 
         <div class="footer__bottom reveal-up delay-3">
-          <span class="footer__copyright">© 2026 Run With Instinct — John Deere. All rights reserved.</span>
-          <span class="label">Designed with instinct</span>
+          <span class="footer__copyright">© 2026 John Deere Brasil. Todos os direitos reservados.</span>
+          <span class="label">Poder por Inovação</span>
         </div>
       </div>
     </div>
 
-    <!-- Ghost brand mark -->
-    <div class="footer__ghost">Run With Instinct</div>
+    <div class="footer__ghost">John Deere</div>
   </footer>
 
   <!-- Scripts -->

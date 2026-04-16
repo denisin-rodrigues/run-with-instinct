@@ -1,6 +1,6 @@
 /* ============================================
-   MIDNIGHT EDITORIAL — John Deere × Run With Instinct
-   Main JavaScript — Animations, Interactions, Frame Sequence
+   JOHN DEERE — Midnight Editorial
+   Main JavaScript — Infinite Loop Animation & Interactivity
    ============================================ */
 
 (function () {
@@ -19,14 +19,17 @@
   const FRAME_PATH = 'assets/frames/ezgif-frame-';
 
   // ============================================
-  // FRAME SEQUENCE HERO ANIMATION
+  // FRAME SEQUENCE INFINITE LOOP
   // ============================================
 
   const frameImages = [];
   let currentFrame = 0;
   let loadedCount = 0;
   let heroCtx = null;
-  let heroAnimationStarted = false;
+  let animationFrameId = null;
+  let lastTime = 0;
+  const fps = 24;
+  const interval = 1000 / fps;
 
   function padNumber(num, size) {
     let s = num.toString();
@@ -35,6 +38,7 @@
   }
 
   function getFramePath(index) {
+    // Frames are 001 to 237
     return FRAME_PATH + padNumber(index, 3) + '.jpg';
   }
 
@@ -47,6 +51,7 @@
 
   function resizeCanvas() {
     if (!heroCanvas) return;
+    // For background style, we want to cover the viewport or container
     const container = heroCanvas.parentElement;
     heroCanvas.width = container.clientWidth;
     heroCanvas.height = container.clientHeight;
@@ -68,6 +73,7 @@
         }
       };
       img.onerror = () => {
+        console.error(`Error loading frame ${i}`);
         loadedCount++;
         if (loadedCount === TOTAL_FRAMES) {
           onAllFramesLoaded();
@@ -82,7 +88,7 @@
     const img = frameImages[index];
     const canvas = heroCanvas;
 
-    // Cover-fit the image
+    // Cover-fit logic
     const imgRatio = img.naturalWidth / img.naturalHeight;
     const canvasRatio = canvas.width / canvas.height;
 
@@ -105,75 +111,45 @@
   }
 
   function onAllFramesLoaded() {
-    // Hide preloader
     setTimeout(() => {
       if (preloader) preloader.classList.add('hidden');
-      startHeroAnimation();
+      startInfiniteLoop();
       initRevealAnimations();
-    }, 400);
+      initParallax();
+      animateCounters();
+      initMarquee();
+    }, 500);
   }
 
-  function startHeroAnimation() {
-    if (heroAnimationStarted) return;
-    heroAnimationStarted = true;
+  function startInfiniteLoop() {
+    function animate(time) {
+      animationFrameId = requestAnimationFrame(animate);
 
-    // Auto-play frames initially then switch to scroll-driven
-    let autoFrame = 0;
-    const autoPlaySpeed = 42; // ~24fps
-    const autoPlayEnd = Math.min(60, TOTAL_FRAMES - 1); // Play first 60 frames
-
-    const autoPlay = setInterval(() => {
-      autoFrame++;
-      if (autoFrame >= autoPlayEnd) {
-        clearInterval(autoPlay);
-        initScrollDrivenFrames();
-        return;
+      const delta = time - lastTime;
+      if (delta > interval) {
+        lastTime = time - (delta % interval);
+        
+        drawFrame(currentFrame);
+        currentFrame = (currentFrame + 1) % TOTAL_FRAMES;
       }
-      currentFrame = autoFrame;
-      drawFrame(currentFrame);
-    }, autoPlaySpeed);
-
-    drawFrame(0);
+    }
+    requestAnimationFrame(animate);
   }
 
-  function initScrollDrivenFrames() {
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollFraction = scrollTop / docHeight;
-      const frameIndex = Math.min(
-        TOTAL_FRAMES - 1,
-        Math.floor(scrollFraction * TOTAL_FRAMES)
-      );
-
-      if (frameIndex !== currentFrame) {
-        currentFrame = frameIndex;
-        requestAnimationFrame(() => drawFrame(currentFrame));
-      }
-    });
-  }
-
-  // ============================================
-  // PRELOADER FALLBACK
-  // ============================================
-
-  // If frames take too long, dismiss preloader after 5s
+  // Fallback preloader dismissal
   setTimeout(() => {
     if (preloader && !preloader.classList.contains('hidden')) {
       preloader.classList.add('hidden');
-      startHeroAnimation();
-      initRevealAnimations();
+      startInfiniteLoop();
     }
-  }, 5000);
+  }, 10000);
 
   // ============================================
-  // REVEAL ANIMATIONS (Intersection Observer)
+  // OTHER TYPICAL BEHAVIORS
   // ============================================
 
   function initRevealAnimations() {
     const revealEls = document.querySelectorAll('.reveal-up');
-    if (!revealEls.length) return;
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -181,21 +157,12 @@
           observer.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -60px 0px'
-    });
-
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
     revealEls.forEach(el => observer.observe(el));
   }
 
-  // ============================================
-  // PARALLAX IMAGES
-  // ============================================
-
   function initParallax() {
     const parallaxImages = document.querySelectorAll('.parallax-image__img');
-
     window.addEventListener('scroll', () => {
       parallaxImages.forEach(img => {
         const rect = img.parentElement.getBoundingClientRect();
@@ -206,42 +173,28 @@
     });
   }
 
-  // ============================================
-  // CUSTOM CURSOR
-  // ============================================
-
   function initCursor() {
-    if (!cursor) return;
-    if (window.innerWidth < 768) return;
-
+    if (!cursor || window.innerWidth < 768) return;
     document.addEventListener('mousemove', (e) => {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
     });
-
-    const hoverTargets = document.querySelectorAll('a, button, .gallery__item, .nav__cta');
-    hoverTargets.forEach(target => {
-      target.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      target.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    const targets = document.querySelectorAll('a, button, .gallery__item');
+    targets.forEach(t => {
+      t.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      t.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
   }
 
-  // ============================================
-  // MOBILE NAV TOGGLE
-  // ============================================
-
   function initMobileNav() {
     if (!navToggle || !navLinks) return;
-
     navToggle.addEventListener('click', () => {
       navToggle.classList.toggle('active');
       navLinks.classList.toggle('active');
       document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
     });
-
-    // Close on link click
-    navLinks.querySelectorAll('.nav__link').forEach(link => {
-      link.addEventListener('click', () => {
+    navLinks.querySelectorAll('a').forEach(l => {
+      l.addEventListener('click', () => {
         navToggle.classList.remove('active');
         navLinks.classList.remove('active');
         document.body.style.overflow = '';
@@ -249,92 +202,45 @@
     });
   }
 
-  // ============================================
-  // SMOOTH SCROLL FOR ANCHOR LINKS
-  // ============================================
-
-  function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = document.querySelector(anchor.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-  }
-
-  // ============================================
-  // COUNTER ANIMATION
-  // ============================================
-
   function animateCounters() {
     const counters = document.querySelectorAll('[data-count]');
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const el = entry.target;
-          const target = el.getAttribute('data-count');
-          const suffix = el.getAttribute('data-suffix') || '';
-          const prefix = el.getAttribute('data-prefix') || '';
-          const isDecimal = target.includes('.');
-          const targetNum = parseFloat(target);
+          const targetNum = parseFloat(el.getAttribute('data-count'));
           const duration = 2000;
-          const startTime = performance.now();
-
-          function updateCounter(now) {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 4); // ease-out-quart
+          const start = performance.now();
+          function upd(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 4);
             const current = eased * targetNum;
-
-            if (isDecimal) {
-              el.textContent = prefix + current.toFixed(1) + suffix;
-            } else {
-              el.textContent = prefix + Math.floor(current).toLocaleString() + suffix;
-            }
-
-            if (progress < 1) {
-              requestAnimationFrame(updateCounter);
-            }
+            el.textContent = (el.getAttribute('data-prefix') || '') + 
+                             Math.floor(current).toLocaleString() + 
+                             (el.getAttribute('data-suffix') || '');
+            if (progress < 1) requestAnimationFrame(upd);
           }
-
-          requestAnimationFrame(updateCounter);
+          requestAnimationFrame(upd);
           observer.unobserve(el);
         }
       });
     }, { threshold: 0.5 });
-
-    counters.forEach(el => observer.observe(el));
+    counters.forEach(c => observer.observe(c));
   }
 
-  // ============================================
-  // MARQUEE DUPLICATION
-  // ============================================
-
   function initMarquee() {
-    const tracks = document.querySelectorAll('.marquee__track');
-    tracks.forEach(track => {
-      const items = track.innerHTML;
-      track.innerHTML = items + items;
+    document.querySelectorAll('.marquee__track').forEach(t => {
+      const content = t.innerHTML;
+      t.innerHTML = content + content;
     });
   }
 
-  // ============================================
-  // INITIALIZATION
-  // ============================================
-
+  // Initialization
   function init() {
     initHeroCanvas();
     preloadFrames();
     initCursor();
     initMobileNav();
-    initSmoothScroll();
-    initParallax();
-    animateCounters();
-    initMarquee();
   }
 
   if (document.readyState === 'loading') {
@@ -342,5 +248,4 @@
   } else {
     init();
   }
-
 })();

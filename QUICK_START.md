@@ -1,4 +1,5 @@
-# Quick Start Guide – Run With Instinct
+# Início Rápido – Run With Instinct (Midnight Editorial)
+O site está publicado em: [https://run-with-instinct.netlify.app](https://run-with-instinct.netlify.app)
 
 ## 🚀 Deploy in 3 Minutes
 
