@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RUN WITH INSTINCT – Season 04</title>
+  <meta name="description" content="Run With Instinct: Brutalist Fashion Editorial. Raw, Industrial, Intentional.">
+  
+  <!-- Google Fonts: Clash Grotesk, General Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Grotesk:wght@400;500;600;700&family=General+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-beige: #E3E2DE;
+      --text-dark: #1B0E0D;
+      --accent-red: #C72A09;
+      --accent-neon: #31EF07;
+      --text-brown: #61220F;
+      --border-light: #D9D9D9;
+      --font-display: 'Clash Grotesk', sans-serif;
+      --font-body: 'General Sans', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-beige);
+      color: var(--text-dark);
+      font-family: var(--font-body);
+      line-height: 1.4;
+      overflow-x: hidden;
+    }
+
+    /* NOISE TEXTURE OVERLAY */
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.08;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1000 1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='1'/%3E%3C/filter%3E%3Crect width='1000' height='1000' fill='%231B0E0D' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background: rgba(227, 226, 222, 0.9);
+      mix-blend-mode: difference;
+      padding: 24px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--text-dark);
+    }
+
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: var(--bg-beige);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 48px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--bg-beige);
+      position: relative;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-neon);
+      transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 24px;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: var(--bg-beige);
+      position: relative;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--accent-neon);
+      color: var(--text-dark);
+      width: 18px;
+      height: 18px;
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    /* HERO SECTION */
+    .hero-section {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      margin-top: 80px;
+      overflow: hidden;
+      background: var(--text-dark);
+    }
+
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.6;
+      filter: grayscale(100%) contrast(1.2);
+    }
+
+    .hero-content {
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 64px 48px;
+      border-top: 1px solid var(--bg-beige);
+      z-index: 10;
+    }
+
+    .hero-meta {
+      font-family: 'General Sans', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--bg-beige);
+      margin-bottom: 24px;
+      opacity: 0.8;
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(8vw, 13.5vw, 18vw);
+      font-weight: 700;
+      line-height: 0.75;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      color: var(--accent-red);
+      margin-bottom: 32px;
+      max-width: 90%;
+    }
+
+    .hero-headline .indent {
+      display: block;
+      margin-left: 20vw;
+      color: var(--bg-beige);
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: var(--accent-red);
+      color: var(--bg-beige);
+      padding: 16px 48px;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 0;
+    }
+
+    .hero-cta:hover {
+      background: var(--bg-beige);
+      color: var(--text-dark);
+      transform: scale(1.05);
+    }
+
+    /* MANIFESTO SECTION */
+    .manifesto-section {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+      padding: 120px 48px;
+      background: var(--bg-beige);
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .manifesto-label {
+      grid-column: 1 / 5;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      padding-top: 24px;
+      border-top: 2px solid var(--text-dark);
+    }
+
+    .manifesto-text {
+      grid-column: 5 / 13;
+      font-family: var(--font-body);
+      font-size: clamp(24px, 4vw, 48px);
+      font-weight: 500;
+      text-transform: uppercase;
+      line-height: 1.1;
+      text-indent: 3rem;
+    }
+
+    .manifesto-text .highlight {
+      color: var(--text-brown);
+    }
+
+    /* CATEGORY DIVIDER */
+    .category-divider {
+      padding: 80px 48px;
+      background: var(--bg-beige);
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      text-align: left;
+    }
+
+    .category-heading {
+      font-family: var(--font-display);
+      font-size: clamp(8vw, 12vw, 16vw);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: var(--text-brown);
+      line-height: 0.85;
+      padding: 0;
+    }
+
+    /* PRODUCT GRID */
+    .products-section {
+      padding: 120px 48px;
+      background: var(--bg-beige);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+    }
+
+    .product-item {
+      position: relative;
+      overflow: hidden;
+      background: #F5F5F5;
+      transition: all 0.3s ease;
+    }
+
+    .product-item:nth-child(1) {
+      grid-column: span 7;
+      aspect-ratio: 4 / 5;
+    }
+
+    .product-item:nth-child(2) {
+      grid-column: span 5;
+      aspect-ratio: 3 / 4;
+      margin-top: 128px;
+    }
+
+    .product-item:nth-child(3) {
+      grid-column: span 6;
+      aspect-ratio: 4 / 5;
+    }
+
+    .product-item:nth-child(4) {
+      grid-column: span 6;
+      aspect-ratio: 3 / 4;
+      margin-top: 64px;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #999 0%, #ccc 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #666;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      filter: grayscale(100%) contrast(1.1);
+    }
+
+    .product-item:hover .product-image img {
+      transform: scale(1.08);
+    }
+
+    .product-details {
+      padding: 24px;
+      background: var(--bg-beige);
+      border-bottom: 1px solid var(--text-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .product-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .product-price {
+      font-family: 'General Sans', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .product-item:hover .product-details {
+      border-bottom-color: var(--accent-red);
+    }
+
+    .quick-view-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--accent-neon);
+      color: var(--text-dark);
+      padding: 8px 12px;
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      z-index: 20;
+      border-radius: 0;
+    }
+
+    .product-item:hover .quick-view-badge {
+      opacity: 1;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 120px 48px 60px;
+      background: var(--bg-beige);
+      border-top: 1px solid var(--border-light);
+      position: relative;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 48px;
+      margin-bottom: 80px;
+    }
+
+    .footer-section h4 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      font-family: var(--font-body);
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .footer-section a {
+      color: var(--text-dark);
+      text-decoration: none;
+      position: relative;
+    }
+
+    .footer-section a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent-neon);
+      transition: width 0.3s ease;
+    }
+
+    .footer-section a:hover::after {
+      width: 100%;
+    }
+
+    .newsletter {
+      background: var(--text-dark);
+      padding: 32px;
+      margin-bottom: 60px;
+    }
+
+    .newsletter-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: var(--bg-beige);
+      margin-bottom: 16px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid var(--bg-beige);
+      padding: 12px 0;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--bg-beige);
+      outline: none;
+    }
+
+    .newsletter-form input::placeholder {
+      color: var(--bg-beige);
+      opacity: 0.6;
+    }
+
+    .newsletter-form button {
+      background: none;
+      border: none;
+      border-bottom: 2px solid var(--bg-beige);
+      padding: 12px 24px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-neon);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .newsletter-form button:hover {
+      color: var(--bg-beige);
+      border-bottom-color: var(--accent-neon);
+    }
+
+    .footer-ghost-title {
+      position: absolute;
+      bottom: 40px;
+      left: 48px;
+      font-family: var(--font-display);
+      font-size: 8vw;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: var(--border-light);
+      opacity: 0.3;
+      line-height: 0.85;
+      z-index: 1;
+    }
+
+    /* CART DRAWER */
+    .cart-drawer {
+      position: fixed;
+      right: -400px;
+      top: 0;
+      width: 400px;
+      height: 100vh;
+      background: var(--bg-beige);
+      border-left: 1px solid var(--text-dark);
+      z-index: 200;
+      transition: right 0.3s ease;
+      overflow-y: auto;
+      margin-top: 80px;
+    }
+
+    .cart-drawer.active {
+      right: 0;
+    }
+
+    .cart-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--text-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-header h2 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .cart-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+
+    .cart-content {
+      padding: 24px;
+      min-height: 300px;
+    }
+
+    .cart-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .cart-footer {
+      padding: 24px;
+      border-top: 1px solid var(--text-dark);
+      background: var(--text-dark);
+      color: var(--bg-beige);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      font-family: 'General Sans', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav {
+        padding: 16px 24px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-section {
+        margin-top: 60px;
+      }
+
+      .hero-headline {
+        font-size: 8vw;
+      }
+
+      .hero-headline .indent {
+        margin-left: 10vw;
+      }
+
+      .manifesto-section {
+        grid-template-columns: 1fr;
+        padding: 60px 24px;
+      }
+
+      .manifesto-label {
+        grid-column: auto;
+      }
+
+      .manifesto-text {
+        grid-column: auto;
+      }
+
+      .category-heading {
+        font-size: 8vw;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .product-item {
+        grid-column: span 1 !important;
+        margin-top: 0 !important;
+        aspect-ratio: 3 / 4 !important;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        padding: 0 24px;
+      }
+
+      .footer-ghost-title {
+        font-size: 12vw;
+        left: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NOISE OVERLAY -->
+  <div class="noise-overlay"></div>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-brand">RWI — Season 04</div>
+    <ul class="nav-links">
+      <li><a href="#products">Shop</a></li>
+      <li><a href="#editorial">Editorial</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-icons">
+      <button class="icon-btn">🔍</button>
+      <button class="icon-btn" id="cartBtn">
+        🛍️
+        <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section" id="hero">
+    <div class="hero-background" id="heroBackground"></div>
+    <div class="hero-content">
+      <div class="hero-meta">Season 04 / Essential Gear / 2026</div>
+      <h1 class="hero-headline">
+        MOVE<span class="indent">WITH INSTINCT</span>
+      </h1>
+      <button class="hero-cta" id="explorerBtn">Explore Collection</button>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto-section">
+    <div class="manifesto-label">MANIFESTO</div>
+    <div class="manifesto-text">
+      <span class="highlight">RAW BEAUTY.</span> UNFILTERED MOTION. THE <span class="highlight">NATURAL ORDER</span> DEMANDS PRECISION GEAR FOR THOSE WHO MOVE WITH <span class="highlight">PURPOSE.</span>
+    </div>
+  </section>
+
+  <!-- CATEGORY DIVIDER -->
+  <section class="category-divider">
+    <h2 class="category-heading">ESSENTIAL GEAR</h2>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products-section" id="products">
+    <div class="products-grid">
+      <div class="product-item">
+        <div class="quick-view-badge">Quick View</div>
+        <div class="product-image">
+          <img src="/assets/images/deer_forest_motion.jpg" alt="Trail Runner - Deer in Motion">
+        </div>
+        <div class="product-details">
+          <div class="product-title">Trail Runner</div>
+          <div class="product-price">$185</div>
+        </div>
+      </div>
+
+      <div class="product-item">
+        <div class="quick-view-badge">Quick View</div>
+        <div class="product-image">
+          <img src="/assets/images/deer_field_landscape.jpg" alt="Field Vest - Deer and Land">
+        </div>
+        <div class="product-details">
+          <div class="product-title">Field Vest</div>
+          <div class="product-price">$245</div>
+        </div>
+      </div>
+
+      <div class="product-item">
+        <div class="quick-view-badge">Quick View</div>
+        <div class="product-image">
+          <img src="/assets/images/deer_autumn_portrait.jpg" alt="Motion Wear - Autumn Deer">
+        </div>
+        <div class="product-details">
+          <div class="product-title">Motion Wear</div>
+          <div class="product-price">$160</div>
+        </div>
+      </div>
+
+      <div class="product-item">
+        <div class="quick-view-badge">Quick View</div>
+        <div class="product-image">
+          <img src="/assets/images/deer_forest_motion.jpg" alt="Field Kit - Terrain Ready">
+        </div>
+        <div class="product-details">
+          <div class="product-title">Field Kit</div>
+          <div class="product-price">$95</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-section">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">Men's Gear</a></li>
+          <li><a href="#">Women's Gear</a></li>
+          <li><a href="#">Accessories</a></li>
+          <li><a href="#">New Arrivals</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Editorial</h4>
+        <ul>
+          <li><a href="#">Field Stories</a></li>
+          <li><a href="#">Photography</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Journal</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Cookies</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="newsletter">
+      <div class="newsletter-title">Join the Field</div>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Enter your email" required>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+
+    <div class="footer-ghost-title">RWI</div>
+  </footer>
+
+  <!-- CART DRAWER -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="cart-content" id="cartContent">
+      <p>Your cart is empty.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <button style="width: 100%; padding: 12px; background: var(--accent-neon); color: var(--text-dark); border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 12px;">Checkout</button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // HERO FRAME ANIMATION
+    const heroBackground = document.getElementById('heroBackground');
+    let currentFrame = 1;
+    const totalFrames = 237;
+
+    function loadFrame(frameNum) {
+      const paddedNum = String(frameNum).padStart(3, '0');
+      const framePath = `/assets/frames/ezgif-frame-${paddedNum}.jpg`;
+      heroBackground.style.backgroundImage = `url('${framePath}')`;
+    }
+
+    // Load first frame
+    loadFrame(1);
+
+    // Animate frames on scroll
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom center',
+        scrub: 1,
+        markers: false
+      }
+    });
+
+    tl.to({frame: 1}, {
+      frame: totalFrames,
+      duration: 1,
+      ease: 'linear',
+      onUpdate: function() {
+        const frame = Math.round(this.targets()[0].frame);
+        loadFrame(frame);
+      }
+    }, 0);
+
+    // CART FUNCTIONALITY
+    const cartBtn = document.getElementById('cartBtn');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartClose = document.getElementById('cartClose');
+    const cartBadge = document.getElementById('cartBadge');
+    let cart = [];
+
+    cartBtn.addEventListener('click', () => {
+      cartDrawer.classList.add('active');
+    });
+
+    cartClose.addEventListener('click', () => {
+      cartDrawer.classList.remove('active');
+    });
+
+    // PRODUCTS INTERACTION
+    document.querySelectorAll('.product-item').forEach((item, idx) => {
+      item.addEventListener('click', () => {
+        const title = item.querySelector('.product-title').textContent;
+        const price = item.querySelector('.product-price').textContent;
+        
+        // Add to cart
+        cart.push({title, price});
+        cartBadge.textContent = cart.length;
+        cartBadge.style.display = 'flex';
+
+        // Show toast
+        const toast = document.createElement('div');
+        toast.style.cssText = `
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background: var(--accent-neon);
+          color: var(--text-dark);
+          padding: 12px 24px;
+          font-weight: 700;
+          z-index: 300;
+          border-radius: 0;
+        `;
+        toast.textContent = `Added ${title} to cart`;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => toast.remove(), 2000);
+      });
+    });
+
+    // GSAP ANIMATIONS
+    gsap.from('.manifesto-text', {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      scrollTrigger: {
+        trigger: '.manifesto-section',
+        start: 'top 70%'
+      }
+    });
+
+    gsap.from('.product-item', {
+      opacity: 0,
+      y: 50,
+      stagger: 0.1,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: '#products',
+        start: 'top 70%'
+      }
+    });
+  </script>
+
+</body>
+</html>
