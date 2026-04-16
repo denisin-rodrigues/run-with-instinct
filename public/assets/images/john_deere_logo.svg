@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="120" height="90">
-  <path d="M 50 10 Q 50 0 60 0 L 340 0 Q 350 0 350 10 L 350 240 Q 350 250 340 250 L 60 250 Q 50 250 50 240 Z" fill="#367C2B"/>
-  <path d="M 65 25 Q 65 15 75 15 L 325 15 Q 335 15 335 25 L 335 225 Q 335 235 325 235 L 75 235 Q 65 235 65 225 Z" fill="#FFDE00"/>
-  <path d="M 80 40 Q 80 30 90 30 L 310 30 Q 320 30 320 40 L 320 210 Q 320 220 310 220 L 90 220 Q 80 220 80 210 Z" fill="#367C2B"/>
-  <!-- Jumping Deer Silhouette (Approximate) -->
-  <path d="M 180 80 C 180 70 190 70 200 65 C 210 60 220 70 230 80 C 240 90 260 100 280 110 C 300 120 290 140 280 150 C 270 160 260 165 250 170 C 240 175 200 180 180 160 C 160 140 140 130 120 125 C 100 120 110 90 130 85 C 150 80 170 90 180 80" fill="#FFDE00"/>
-  <!-- Text JOHN DEERE -->
-  <text x="200" y="285" font-family="Arial, sans-serif" font-weight="900" font-size="42" text-anchor="middle" fill="#367C2B">JOHN DEERE</text>
-</svg>

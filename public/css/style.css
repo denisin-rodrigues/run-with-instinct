@@ -200,16 +200,17 @@ ul { list-style: none; }
 
 .nav__brand-img {
   width: auto;
-  height: 40px;
+  height: 48px; /* Aumentado para o PNG ser mais visível */
   transition: transform 0.4s var(--ease-reveal);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
-.nav__brand:hover .nav__brand-img {
-  transform: scale(1.05);
+.nav__brand span {
+  display: none; /* Logo PNG já tem o texto ou é suficiente */
 }
 
 /* ============================================
-   HERO SECTION (BACKGROUND STYLE)
+   HERO SECTION (PUMA STYLE)
    ============================================ */
 
 .hero--background {
@@ -234,100 +235,58 @@ ul { list-style: none; }
   height: 100%;
   object-fit: cover;
   display: block;
-  opacity: 0.7; /* Suave transparência para o fundo */
 }
 
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, 
-    rgba(0,0,0,0.4) 0%, 
-    transparent 50%, 
-    rgba(0,0,0,0.6) 100%);
+  background: rgba(0, 0, 0, 0.35); /* Overlay solicitado de 0.35 */
   z-index: 2;
 }
 
-.hero__content {
-  position: relative;
+.hero__content--puma {
+  position: absolute;
+  inset: 0;
   z-index: 10;
-  text-align: center;
-  max-width: 900px;
-  padding: 0 var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-xl) var(--space-lg);
+  pointer-events: none;
 }
 
-.hero__title {
+.hero__title-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.hero__title-block {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(60px, 12vw, 160px);
-  line-height: 0.85;
+  font-size: clamp(40px, 8vw, 120px);
+  line-height: 0.8;
   letter-spacing: -0.05em;
   text-transform: uppercase;
   color: var(--fg-primary);
-  margin-bottom: var(--space-md);
+  text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  pointer-events: auto;
 }
 
-.hero__title span {
-  display: block;
+.hero__title-block--left {
+  text-align: left;
 }
 
-.hero__subtitle {
-  font-family: var(--font-body);
-  font-weight: 300;
-  font-size: clamp(16px, 1.5vw, 22px);
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
-  max-width: 700px;
-  margin: 0 auto var(--space-lg);
-  text-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.hero__actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-md);
-}
-
-.btn-primary {
-  background: var(--deere-green);
+.hero__title-block--right {
+  text-align: right;
   color: var(--fg-primary);
-  padding: 16px 36px;
-  border-radius: 50px;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: all 0.4s var(--ease-reveal);
-  border: 1px solid var(--deere-green);
 }
 
-.btn-primary:hover {
-  background: var(--fg-primary);
-  color: var(--deere-green);
-  border-color: var(--fg-primary);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--fg-primary);
-  padding: 16px 36px;
-  border-radius: 50px;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: all 0.4s var(--ease-reveal);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--fg-primary);
-  transform: translateY(-3px);
+.hero--background .hero__scroll-indicator {
+  z-index: 15;
 }
 
 .hero__scroll-indicator {
